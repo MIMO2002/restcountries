@@ -47,11 +47,12 @@
             <span class="close">&times;</span>
             <h2>{{ country.name.official }}</h2>
             <img src="{{ country.flags.png }}" alt="Flag" width="200">
-            <p>2 Character Code: {{ country.cca2 }}</p>
-            <p>3 Character Code: {{ country.cca3 }}</p>
-            <p>Native Name: {{ country.name.nativeName }}</p>
+            <p>Capital: {{ capital }}</p>
             <p>Alternative Name: {{ country.altSpellings|join(', ') }}</p>
-            <p>Calling Codes: {{ country.idd }}</p>
+            <p>Area: {{ country.area }} km²</p>
+            <p>Population: {{ country.population }}</p>
+            <p>Continents: {{ country.region }}</p>
+            <p>Languages: {{ country.languages|join(', ') }}</p>
             <!-- Add any additional information here -->
         </div>
     </div>

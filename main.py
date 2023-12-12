@@ -49,9 +49,12 @@ def country_detail(country_code):
     countries = response.json()  # Assuming the response is a list of countries
     country = countries[0]  # Access the first country in the list
 
+    capital = country.get('capital', [''])[0]
     # official_name = country['name']['official']
-    # return jsonify(countries)
-    return render_template("country_detail.html", country=country)
+    # currency = country["currencies"]
+
+    # return jsonify(currency)
+    return render_template("country_detail.html", country=country, capital=capital)
 
 
 if __name__ == "__main__":
