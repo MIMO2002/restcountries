@@ -40,13 +40,21 @@
         <tr>
             <th>Flag</th>
             <th>
-                <a href="/?sort=asc&query={{ query }}">Country Name (Asc)</a>
+                {% if query %}
+                    <a href="/?sort=asc&query={{ query }}">Country Name (Asc)</a>
+                {% else %}
+                    <a href="/?sort=asc">Country Name (Asc)</a>
+                {% endif %}
                 {% if sort_order == 'asc' %}
                     &#x25B2;
                 {% endif %}
             </th>
             <th>
-                <a href="/?sort=desc&query={{ query }}">Country Name (Desc)</a>
+                {% if query %}
+                    <a href="/?sort=desc&query={{ query }}">Country Name (Desc)</a>
+                {% else %}
+                    <a href="/?sort=desc">Country Name (Desc)</a>
+                {% endif %}
                 {% if sort_order == 'desc' %}
                     &#x25BC;
                 {% endif %}
