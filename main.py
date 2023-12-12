@@ -12,7 +12,7 @@ rows_per_page = 25
 @app.route("/")
 def index():
     # Retrieve all country data from the API
-    response = requests.get(api_base_url + "all")
+    response = requests.get(api_base_url + "all", verify=False)
     countries = response.json()
 
     # Get the search query from the URL parameters
@@ -45,7 +45,7 @@ def index():
 @app.route("/country/<country_code>")
 def country_detail(country_code):
     # Retrieve country data by country code from the API
-    response = requests.get(api_base_url + "alpha/" + country_code)
+    response = requests.get(api_base_url + "alpha/" + country_code, verify=False)
     country = response.json()
 
     return render_template("country_detail.html", country=country)
