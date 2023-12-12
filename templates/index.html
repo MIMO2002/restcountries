@@ -40,23 +40,14 @@
         <tr>
             <th>Flag</th>
             <th>
-                {% if query %}
-                    <a href="/?sort=asc&query={{ query }}">Country Name (Asc)</a>
-                {% else %}
-                    <a href="/?sort=asc">Country Name (Asc)</a>
-                {% endif %}
                 {% if sort_order == 'asc' %}
-                    &#x25B2;
-                {% endif %}
-            </th>
-            <th>
-                {% if query %}
-                    <a href="/?sort=desc&query={{ query }}">Country Name (Desc)</a>
-                {% else %}
-                    <a href="/?sort=desc">Country Name (Desc)</a>
-                {% endif %}
-                {% if sort_order == 'desc' %}
+                    <a href="/?sort=desc{% if query %}&query={{ query }}{% endif %}">Country Name (Desc)</a>
                     &#x25BC;
+                {% else %}
+                    <a href="/?sort=asc{% if query %}&query={{ query }}{% endif %}">Country Name (Asc)</a>
+                    {% if sort_order == 'desc' %}
+                        &#x25B2;
+                    {% endif %}
                 {% endif %}
             </th>
             <th>2 Character Code</th>
@@ -69,7 +60,6 @@
             <tr>
                 <td><img src="{{ country.flags.png }}" alt="Flag" width="32"></td>
                 <td><a href="/country/{{ country.cca2 }}">{{ country.name.official }}</a></td>
-                <td>{{ country.name.official }}</td>
                 <td>{{ country.cca2 }}</td>
                 <td>{{ country.cca3 }}</td>
                 <td>{{ country.name.nativeName }}</td>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import requests
 
 app = Flask(__name__)
@@ -46,8 +46,11 @@ def index():
 def country_detail(country_code):
     # Retrieve country data by country code from the API
     response = requests.get(api_base_url + "alpha/" + country_code, verify=False)
-    country = response.json()
+    countries = response.json()  # Assuming the response is a list of countries
+    country = countries[0]  # Access the first country in the list
 
+    # official_name = country['name']['official']
+    # return jsonify(countries)
     return render_template("country_detail.html", country=country)
 
 

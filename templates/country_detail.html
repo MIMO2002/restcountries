@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Country Detail</title>
+    <style>
+        /* Styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>{{ country.name.official }}</h2>
+            <img src="{{ country.flags.png }}" alt="Flag" width="200">
+            <p>2 Character Code: {{ country.cca2 }}</p>
+            <p>3 Character Code: {{ country.cca3 }}</p>
+            <p>Native Name: {{ country.name.nativeName }}</p>
+            <p>Alternative Name: {{ country.altSpellings|join(', ') }}</p>
+            <p>Calling Codes: {{ country.idd }}</p>
+            <!-- Add any additional information here -->
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle the modal functionality
+        var modal = document.getElementById("myModal");
+        var closeBtn = document.getElementsByClassName("close")[0];
+
+        // Open the modal when the page loads
+        window.onload = function() {
+            modal.style.display = "block";
+        };
+
+        // Close the modal when the close button is clicked
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        // Close the modal when the user clicks outside the modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+</body>
+</html>
