@@ -73,11 +73,19 @@
     <br>
     <div>
         {% if current_page > 1 %}
-            <a href="/?page={{ current_page - 1 }}&sort={{ sort_order }}&query={{ query }}">Previous</a>
+            {% if query %}
+                <a href="/?page={{ current_page - 1 }}&sort={{ sort_order }}&query={{ query }}">Previous</a>
+            {% else %}
+                <a href="/?page={{ current_page - 1 }}&sort={{ sort_order }}">Previous</a>
+            {% endif %}
         {% endif %}
         <span class="current_page">{{ current_page }}</span>
         {% if countries|length >= rows_per_page %}
-            <a href="/?page={{ current_page + 1 }}&sort={{ sort_order }}&query={{ query }}">Next</a>
+            {% if query %}
+                <a href="/?page={{ current_page + 1 }}&sort={{ sort_order }}&query={{ query }}">Next</a>
+            {% else %}
+                <a href="/?page={{ current_page + 1 }}&sort={{ sort_order }}">Next</a>
+            {% endif %}
         {% endif %}
     </div>
 </body>
