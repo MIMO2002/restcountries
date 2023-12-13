@@ -66,8 +66,8 @@
                     <td>
                         root: {{ country.idd.root }},
                         suffixes:
-                        {% for suffixes in country.idd.suffixes %}
-                            {{suffixes}},
+                        {% for suffix in country.idd.suffixes %}
+                            {{ suffix }}{% if not loop.last %}, {% endif %}
                         {% endfor %}
                     </td>
                 </tr>
