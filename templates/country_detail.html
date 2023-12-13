@@ -13,8 +13,8 @@
             <img src="{{ country.flags.png }}" alt="Flag" width="200">
             <p>Capital: {{ capital }}</p>
             <p>Languages:
-                {% for key, value in languages.items() %}
-                {{ key }}: {{ value }},
+                {% for value in languages.values() %}
+                    {{ value }},
                 {% endfor %}
             </p>
             <p>Alternative Name: {{ country.altSpellings|join(', ') }}</p>
