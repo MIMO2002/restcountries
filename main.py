@@ -10,7 +10,8 @@ api_base_url = "https://restcountries.com/v3.1/"
 rows_per_page = 25
 
 @app.route("/")
-def index():
+@app.route("/home")
+def home():
     # Retrieve all country data from the API
     response = requests.get(api_base_url + "all", verify=False)
     countries = response.json()
@@ -39,7 +40,7 @@ def index():
     end_index = start_index + rows_per_page
     paginated_countries = countries[start_index:end_index]
 
-    return render_template("index.html", countries=paginated_countries, query=query, sort_order=sort_order, current_page=page, rows_per_page=rows_per_page)
+    return render_template("home.html", countries=paginated_countries, query=query, sort_order=sort_order, current_page=page, rows_per_page=rows_per_page)
 
 
 @app.route("/country/<country_code>")
