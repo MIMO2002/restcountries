@@ -51,11 +51,11 @@ def country_detail(country_code):
     country = countries[0]  # Access the first country in the list
 
     capital = country.get('capital', [''])[0]
-    # official_name = country['name']['official']
-    # currency = country["currencies"]
+    curKey = list(country["currencies"].keys())[0]
+    languages = country["languages"]
 
     # return jsonify(currency)
-    return render_template("country_detail.html", country=country, capital=capital)
+    return render_template("country_detail.html", country=country, capital=capital, curKey=curKey, languages=languages)
 
 
 if __name__ == "__main__":
