@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CountryTable from './CountryTable';
 import Search from './Search';
+import './Modal.css';
 
 function Home() {
     const rowsPerPage = 25;
@@ -65,6 +66,9 @@ function Home() {
     const currentCountries = filteredCountries.slice(indexOfFirstCountry, indexOfLastCountry);
     const totalCountries = filteredCountries.length;
     const totalPages = Math.ceil(totalCountries / rowsPerPage);
+    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   return (
     <div>

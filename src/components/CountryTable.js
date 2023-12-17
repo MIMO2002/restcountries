@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Modal from './Modal';
 
 function CountryTable({countries, loading, error}) {
+
+    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleOpenModal = (country) => {
+        console.log("Selected country: " + country.name.official);
+        setSelectedCountry(country);
+        setIsModalOpen(true);
+    };
+    
+    const handleCloseModal = () => {
+        setSelectedCountry(null);
+        setIsModalOpen(false);
+    };    
+
     return ( 
         <div>
             {loading ? ('Loading...') : (
@@ -16,7 +32,7 @@ function CountryTable({countries, loading, error}) {
                             <th>Calling Codes</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         {countries.map((country) => {
 
@@ -25,7 +41,11 @@ function CountryTable({countries, loading, error}) {
                                     <td className='Flag-img'>
                                         <img src={country.flags.png} alt="Flag" width="32" />
                                     </td>
-                                    <td className='Official-name'>{country.name.official}</td>
+                                    <td className='Official-name'>
+                                        <a onClick={() => handleOpenModal(country)}>
+                                            {country.name.official}
+                                        </a>
+                                    </td>
                                     <td>{country.cca2}</td>
                                     <td>{country.cca3}</td>
                                     <td className='Native-name'>
@@ -51,6 +71,11 @@ function CountryTable({countries, loading, error}) {
                 </table>
             )}  
             {error ? error : null}
+            {isModalOpen && (
+                <Modal country={selectedCountry} onClose={handleCloseModal} />
+            )}
+
+
         </div>
      );
 }
