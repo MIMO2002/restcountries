@@ -5,6 +5,18 @@ function CountryTable({countries, loading, error}) {
         <div>
             {loading ? ('Loading...') : (
                 <table>
+                    <thead>
+                        <tr>
+                            <th>Flap</th>
+                            <th>Country Name</th>
+                            <th>CCA2</th>
+                            <th>CCA3</th>
+                            <th>Native Name</th>
+                            <th>Alternative Name </th>
+                            <th>Calling Codes</th>
+                        </tr>
+                    </thead>
+                    
                     <tbody>
                         {countries.map((country) => {
 

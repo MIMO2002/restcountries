@@ -1,72 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CountryTable from './CountryTable';
-
+import Search from './Search';
 
 function Home() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [countries, setCountries] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]); // Separate state for filtered countries
 
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState('')
-    const [countries, setCountries] = useState({})
+  useEffect(() => {
+    axios.get('https://restcountries.com/v3.1/all')
+      .then((response) => {
+        setLoading(false);
+        setCountries(response.data);
+        setFilteredCountries(response.data); // Initialize filteredCountries with all countries
+        setError('');
+      })
+      .catch((error) => {
+        setLoading(false);
+        setCountries([]);
+        setFilteredCountries([]);
+        setError("Something went wrong");
+      });
+  }, []);
 
-    useEffect(() => {
-        axios.get('https://restcountries.com/v3.1/all')
-            .then((response) => {
-                setLoading(false)
-                setCountries(response.data)
-                setError('')
-            })
-            .catch((error) => {
-                setLoading(false)
-                setCountries({})
-                setError("Something went wrong")
-            })
-    }, [])
+  const handleSearch = (searchTerm) => {
+    if (searchTerm.trim() === '') {
+      setFilteredCountries(countries); // Reset to all countries when search term is empty
+    } else {
+      const filteredCountries = countries.filter((country) =>
+        country.name.official.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredCountries(filteredCountries);
+    }
+  };
 
-    
-
-    console.log(countries)
-    return ( 
-        <div>
-            {/* {loading ? 'Loading...' : (
-                <table>
-                    <tbody>
-                        {countries.map((country) => {
-
-                            return (
-                                <tr key={country.cca2}>
-                                    <td className='Flag-img'>
-                                        <img src={country.flags.png} alt="Flag" width="32" />
-                                    </td>
-                                    <td className='Official-name'>{country.name.official}</td>
-                                    <td>{country.cca2}</td>
-                                    <td>{country.cca3}</td>
-                                    <td className='Native-name'>
-                                        {country.name.nativeName && Object.values(country.name.nativeName).map((nativeName, index) => (
-                                            <React.Fragment key={index}>
-                                                {nativeName.official}, {nativeName.common} {index < Object.values(country.name.nativeName).length - 1 && ', '}
-                                            </React.Fragment>
-                                        ))}
-                                    </td>
-                                    <td>{country.altSpellings ? country.altSpellings.join(', ') : ''}</td>
-                                    <td>
-                                        root: {country.idd.root},
-                                        suffixes: {country.idd.suffixes && country.idd.suffixes.map((suffix, index) => (
-                                            <React.Fragment key={index}>
-                                                {suffix}{index < country.idd.suffixes.length - 1 && ', '}
-                                            </React.Fragment>
-                                        ))}
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            )}  
-            {error ? error : null} */}
-            <CountryTable loading={loading} error={error} countries={countries}/>
-        </div>
-     );
+  return (
+    <div>
+        <h1>Countries Catalog</h1>
+        <Search onSearch={handleSearch} />
+        <CountryTable loading={loading} error={error} countries={filteredCountries} />
+    </div>
+  );
 }
 
 export default Home;
