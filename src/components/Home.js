@@ -4,42 +4,46 @@ import CountryTable from './CountryTable';
 import Search from './Search';
 
 function Home() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [countries, setCountries] = useState([]);
-  const [filteredCountries, setFilteredCountries] = useState([]); // Separate state for filtered countries
-  const [sortOrder, setSortOrder] = useState('asc');
+    const rowsPerPage = 25;
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [countries, setCountries] = useState([]);
+    const [filteredCountries, setFilteredCountries] = useState([]); // Separate state for filtered countries
+    const [sortOrder, setSortOrder] = useState('asc');
+    const [currentPage, setCurrentPage] = useState(1);
+    
 
-  useEffect(() => {
-    axios.get('https://restcountries.com/v3.1/all')
-      .then((response) => {
-        setLoading(false);
-        setCountries(response.data);
-        setFilteredCountries(response.data); // Initialize filteredCountries with all countries
-        setError('');
-      })
-      .catch((error) => {
-        setLoading(false);
-        setCountries([]);
-        setFilteredCountries([]);
-        setError("Something went wrong");
-      });
-  }, []);
+    useEffect(() => {
+        axios.get('https://restcountries.com/v3.1/all')
+            .then((response) => {
+                setLoading(false);
+                setCountries(response.data);
+                setFilteredCountries(response.data); // Initialize filteredCountries with all countries
+                setError('');
+            })
+            .catch((error) => {
+                setLoading(false);
+                setCountries([]);
+                setFilteredCountries([]);
+                setError("Something went wrong");
+            });
+    }, []);
 
-  // Search function for countries
-  const handleSearch = (searchTerm) => {
-    if (searchTerm.trim() === '') {
-      setFilteredCountries(countries); // Reset to all countries when search term is empty
-    } else {
-      const filteredCountries = countries.filter((country) =>
-        country.name.official.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredCountries(filteredCountries);
-    }
-  };
+    // Search function for countries
+    const handleSearch = (searchTerm) => {
+        if (searchTerm.trim() === '') {
+            setFilteredCountries(countries); // Reset to all countries when search term is empty
+        } else {
+            const filteredCountries = countries.filter((country) =>
+            country.name.official.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredCountries(filteredCountries);
+            setCurrentPage(1); // Reset to the first page when performing a new search
+        }
+    };
 
-  // Sort functions by country name
-  const handleSort = () => {
+    // Sort functions by country name
+    const handleSort = () => {
         const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
         setSortOrder(newOrder);
         const sortedCountries = [...filteredCountries].sort((a, b) => {
@@ -55,12 +59,28 @@ function Home() {
         setFilteredCountries(sortedCountries);
     };
 
+    // Calculate pagination
+    const indexOfLastCountry = currentPage * rowsPerPage;
+    const indexOfFirstCountry = indexOfLastCountry - rowsPerPage;
+    const currentCountries = filteredCountries.slice(indexOfFirstCountry, indexOfLastCountry);
+    const totalCountries = filteredCountries.length;
+    const totalPages = Math.ceil(totalCountries / rowsPerPage);
+
   return (
     <div>
-        <h1 className="Header" onClick={() => setFilteredCountries(countries)}>Countries Catalog</h1>
+        <h1 className="Header" onClick={() => {setFilteredCountries(countries); setCurrentPage(1)}}>Countries Catalog</h1>
         <Search onSearch={handleSearch} />
         <button onClick={handleSort}>Sort by Name ({sortOrder === 'asc' ? 'Asc' : 'Desc'})</button>
-        <CountryTable loading={loading} error={error} countries={filteredCountries} />
+        <CountryTable loading={loading} error={error} countries={currentCountries} />
+        <div>
+            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                Previous
+            </button>
+            <span>{`Page ${currentPage} of ${totalPages}`}</span>
+            <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+                Next
+            </button>
+        </div>
     </div>
   );
 }
