@@ -31,6 +31,10 @@
   .OfficialName {
     text-align: left;
   }
+
+  .OfficialName:hover {
+    cursor: pointer;
+  }
   
   .NativeName {
     text-align: left;
