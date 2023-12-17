@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
+import './CountryTable.css';
 
 function CountryTable({countries, loading, error}) {
 
@@ -18,7 +19,7 @@ function CountryTable({countries, loading, error}) {
     };    
 
     return ( 
-        <div>
+        <div className='container'>
             {loading ? ('Loading...') : (
                 <table>
                     <thead>
@@ -38,17 +39,17 @@ function CountryTable({countries, loading, error}) {
 
                             return (
                                 <tr key={country.cca2}>
-                                    <td className='Flag-img'>
+                                    <td className='FlagImage'>
                                         <img src={country.flags.png} alt="Flag" width="32" />
                                     </td>
-                                    <td className='Official-name'>
+                                    <td className='OfficialName'>
                                         <a onClick={() => handleOpenModal(country)}>
                                             {country.name.official}
                                         </a>
                                     </td>
                                     <td>{country.cca2}</td>
                                     <td>{country.cca3}</td>
-                                    <td className='Native-name'>
+                                    <td className='NativeName'>
                                         {country.name.nativeName && Object.values(country.name.nativeName).map((nativeName, index) => (
                                             <React.Fragment key={index}>
                                                 {nativeName.official}, {nativeName.common} {index < Object.values(country.name.nativeName).length - 1 && ', '}

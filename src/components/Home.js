@@ -3,6 +3,7 @@ import axios from 'axios';
 import CountryTable from './CountryTable';
 import Search from './Search';
 import './Modal.css';
+import './Home.css'
 
 function Home() {
     const rowsPerPage = 25;
@@ -70,23 +71,31 @@ function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-  return (
-    <div>
-        <h1 className="Header" onClick={() => {setFilteredCountries(countries); setCurrentPage(1)}}>Countries Catalog</h1>
-        <Search onSearch={handleSearch} />
-        <button onClick={handleSort}>Sort by Name ({sortOrder === 'asc' ? 'Asc' : 'Desc'})</button>
-        <CountryTable loading={loading} error={error} countries={currentCountries} />
+    return (
         <div>
-            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
-                Previous
-            </button>
-            <span>{`Page ${currentPage} of ${totalPages}`}</span>
-            <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
-                Next
-            </button>
+            <header>
+                <h1 className="header" onClick={() => {setFilteredCountries(countries); setCurrentPage(1)}}>Countries Catalog</h1>
+                <div className='topPage'>
+                    <Search onSearch={handleSearch} />
+                    <button className='sortButton' onClick={handleSort}>
+                        Sort by Name ({sortOrder === 'asc' ? 'Asc' : 'Desc'})
+                    </button>
+                </div>
+            </header>
+
+            <CountryTable loading={loading} error={error} countries={currentCountries} />
+
+            <div className='buttonPage'>
+                <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                    Previous
+                </button>
+                <span>{`Page ${currentPage} of ${totalPages}`}</span>
+                <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+                    Next
+                </button>
+            </div>
         </div>
-    </div>
-  );
+    );
 }
 
 export default Home;

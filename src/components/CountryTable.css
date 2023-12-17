@@ -1,0 +1,45 @@
+.container {
+    margin: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #3498db;
+    color: #fff;
+  }
+  
+  .FlagImage {
+    text-align: center;
+  }
+
+ .FlagImage img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .OfficialName {
+    text-align: left;
+  }
+  
+  .NativeName {
+    text-align: left;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .FlagImage, .OfficialName, .NativeName {
+      text-align: center;
+    }
+  }
+  

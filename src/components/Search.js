@@ -9,14 +9,13 @@ function Search({ onSearch }) {
   };
 
   return (
-    <div>
       <input
+        className='searchInput'
         type="text"
         placeholder="Search by country name"
         value={searchTerm}
         onChange={handleSearch}
       />
-    </div>
   );
 }
 

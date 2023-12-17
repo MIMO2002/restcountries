@@ -1,0 +1,74 @@
+/* Header Styles */
+.header {
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px;
+    cursor: pointer;
+  }
+  
+  /* TopPage Styles */
+  .topPage {
+    display: flex;
+    justify-content: flex-start;
+    align-items: first center;
+    padding: 10px;
+    background-color: #ecf0f1;
+    width: 100%;
+  }
+
+  /* Search Input */
+  .searchInput {
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    width: 400px; /* Set the width of the search input */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  /* Sort Button */
+  .sortButton {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* ButtonPage Styles */
+  .buttonPage {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .buttonPage button {
+    margin: 0 10px;
+    background-color: #3498db;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .topPage {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .searchInput {
+      width: 70%;
+      margin-bottom: 5px;
+    }
+
+    .sortButton {
+        padding: 7px 16px;
+    }
+  }
+  

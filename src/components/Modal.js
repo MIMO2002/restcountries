@@ -26,6 +26,7 @@ const Modal = ({ country, onClose }) => {
       ));
     const currenciesString = currencies.join(', ');
 
+
     return ( 
         <div className="modal-overlay">
             <div className="modal">
@@ -40,14 +41,18 @@ const Modal = ({ country, onClose }) => {
                 <p>Region: {country.region}</p>
                 <p>Subregion: {country.subregion}</p>
                 <p>Continents: {country.region}</p>
-                <p>Coordinates of the Capital: Latitude: {country.capitalInfo.latlng[0]}, Longitude: {country.capitalInfo.latlng[1]}</p>
+                <p>Coordinates of the Capital: Latitude: 
+                    {country.capitalInfo.latlng[0]}, Longitude: {country.capitalInfo.latlng[1]}
+                </p>
                 <p>Timezone: {country.timezones[0]}</p>
                 <p>Car site: {country.car.side}</p>
                 <p>TLD: {country.tld[0]}</p>
-                <p>Independent: {country.independent}</p>
-                <p>UN member: {country.unMember}</p>
-                <p>Google Maps: <a href={country.maps.googleMaps} target="_blank" rel="noopener noreferrer">Google Maps Link</a></p>
-                <p>OpenStreetMap: <a href={country.maps.openStreetMaps} target="_blank" rel="noopener noreferrer">OpenStreetMap Link</a></p>
+                <p>Google Maps: 
+                    <a href={country.maps.googleMaps} target="_blank" rel="noopener noreferrer">Google Maps Link</a>
+                </p>
+                <p>OpenStreetMap: 
+                    <a href={country.maps.openStreetMaps} target="_blank" rel="noopener noreferrer">OpenStreetMap Link</a>
+                </p>
                 
                 {/*Close modal button */}
                 <button onClick={onClose}>Close</button>
