@@ -1,34 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import CountryTable from './CountryTable';
+import React from 'react';
 
-
-function Home() {
-
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState('')
-    const [countries, setCountries] = useState({})
-
-    useEffect(() => {
-        axios.get('https://restcountries.com/v3.1/all')
-            .then((response) => {
-                setLoading(false)
-                setCountries(response.data)
-                setError('')
-            })
-            .catch((error) => {
-                setLoading(false)
-                setCountries({})
-                setError("Something went wrong")
-            })
-    }, [])
-
-    
-
-    console.log(countries)
+function CountryTable({countries, loading, error}) {
     return ( 
         <div>
-            {/* {loading ? 'Loading...' : (
+            {loading ? ('Loading...') : (
                 <table>
                     <tbody>
                         {countries.map((country) => {
@@ -63,10 +38,9 @@ function Home() {
                     </tbody>
                 </table>
             )}  
-            {error ? error : null} */}
-            <CountryTable loading={loading} error={error} countries={countries}/>
+            {error ? error : null}
         </div>
      );
 }
 
-export default Home;
+export default CountryTable;
