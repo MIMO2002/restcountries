@@ -8,6 +8,7 @@ function Home() {
   const [error, setError] = useState('');
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]); // Separate state for filtered countries
+  const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
     axios.get('https://restcountries.com/v3.1/all')
@@ -25,6 +26,7 @@ function Home() {
       });
   }, []);
 
+  // Search function for countries
   const handleSearch = (searchTerm) => {
     if (searchTerm.trim() === '') {
       setFilteredCountries(countries); // Reset to all countries when search term is empty
@@ -36,10 +38,28 @@ function Home() {
     }
   };
 
+  // Sort functions by country name
+  const handleSort = () => {
+        const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+        setSortOrder(newOrder);
+        const sortedCountries = [...filteredCountries].sort((a, b) => {
+        const nameA = a.name.official.toLowerCase();
+        const nameB = b.name.official.toLowerCase();
+
+        if (newOrder === 'asc') {
+            return nameA.localeCompare(nameB);
+        } else {
+            return nameB.localeCompare(nameA);
+        }
+        });
+        setFilteredCountries(sortedCountries);
+    };
+
   return (
     <div>
-        <h1>Countries Catalog</h1>
+        <h1 className="Header" onClick={() => setFilteredCountries(countries)}>Countries Catalog</h1>
         <Search onSearch={handleSearch} />
+        <button onClick={handleSort}>Sort by Name ({sortOrder === 'asc' ? 'Asc' : 'Desc'})</button>
         <CountryTable loading={loading} error={error} countries={filteredCountries} />
     </div>
   );
